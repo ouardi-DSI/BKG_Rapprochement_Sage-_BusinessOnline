@@ -184,7 +184,7 @@
       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
     </scg:Dictionary>
   </sap:WorkflowViewStateService.ViewState>
-  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="1196,5651" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="1196,6962" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="Prefixe_Chemin_Archive" />
       <Variable x:TypeArguments="sd:DataTable" Name="DT_Stock_Compta" />
@@ -1380,10 +1380,10 @@
         </ui:InvokeWorkflowFile.Arguments>
       </ui:InvokeWorkflowFile>
     </Sequence>
-    <Sequence DisplayName="Assainissement_Fichier_Compta_BusinessOnLine" sap:VirtualizedContainerService.HintSize="702,57" sap2010:WorkflowViewState.IdRef="Sequence_199">
+    <Sequence DisplayName="Assainissement_Fichier_Compta_BusinessOnLine" sap:VirtualizedContainerService.HintSize="702,1368" sap2010:WorkflowViewState.IdRef="Sequence_199">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
@@ -1392,13 +1392,13 @@
           <OutArgument x:TypeArguments="x:Int32">[Count]</OutArgument>
         </Assign.To>
         <Assign.Value>
-          <InArgument x:TypeArguments="x:Int32" xml:space="preserve">[DT_Compta.AsEnumerable().Where(Function(row) Not DT_Stock_Compta.AsEnumerable().Any(Function(x)  x(3).ToString.Trim.Equals(row(3).ToString.Trim) and x(4).ToString.trim.ToLower.Equals(row(4).ToString.Trim.ToLower))).Count]</InArgument>
+          <InArgument x:TypeArguments="x:Int32" xml:space="preserve">[DT_Compta.AsEnumerable().Where(Function(row) Not DT_Stock_Compta.AsEnumerable().Any(Function(x)  Cint(x(3).ToString.Trim).Equals(cint(row(3).ToString.Trim)) and x(4).ToString.trim.ToLower.Equals(row(4).ToString.Trim.ToLower))).Count]</InArgument>
         </Assign.Value>
       </Assign>
-      <If Condition="[Count&gt;0]" sap:VirtualizedContainerService.HintSize="502,57" sap2010:WorkflowViewState.IdRef="If_33">
+      <If Condition="[Count&gt;0]" sap:VirtualizedContainerService.HintSize="502,500" sap2010:WorkflowViewState.IdRef="If_33">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             <x:Boolean x:Key="IsPinned">False</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
@@ -1414,7 +1414,7 @@
                 <OutArgument x:TypeArguments="sd:DataTable">[DT_Compta]</OutArgument>
               </Assign.To>
               <Assign.Value>
-                <InArgument x:TypeArguments="sd:DataTable" xml:space="preserve">[DT_Compta.AsEnumerable().Where(Function(row) Not DT_Stock_Compta.AsEnumerable().Any(Function(x)  x(3).ToString.Trim.Equals(row(3).ToString.Trim) and x(4).ToString.trim.ToLower.Equals(row(4).ToString.Trim.ToLower))).CopyToDataTable]</InArgument>
+                <InArgument x:TypeArguments="sd:DataTable" xml:space="preserve">[DT_Compta.AsEnumerable().Where(Function(row) Not DT_Stock_Compta.AsEnumerable().Any(Function(x)  Cint(x(3).ToString.Trim).Equals(cint(row(3).ToString.Trim)) and x(4).ToString.trim.ToLower.Equals(row(4).ToString.Trim.ToLower))).CopyToDataTable]</InArgument>
               </Assign.Value>
             </Assign>
           </Sequence>
