@@ -184,7 +184,7 @@
       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
     </scg:Dictionary>
   </sap:WorkflowViewStateService.ViewState>
-  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="1196,6962" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="1196,6667" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="Prefixe_Chemin_Archive" />
       <Variable x:TypeArguments="sd:DataTable" Name="DT_Stock_Compta" />
@@ -5751,13 +5751,13 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
         </sap:WorkflowViewStateService.ViewState>
       </ui:MultipleAssign>
     </Sequence>
-    <Sequence DisplayName="Creation_Rapport" sap:VirtualizedContainerService.HintSize="702,57" sap2010:WorkflowViewState.IdRef="Sequence_206">
+    <Sequence DisplayName="Creation_Rapport" sap:VirtualizedContainerService.HintSize="702,1380" sap2010:WorkflowViewState.IdRef="Sequence_206">
       <Sequence.Variables>
         <Variable x:TypeArguments="x:Int32" Name="Cpt" />
       </Sequence.Variables>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
@@ -5824,14 +5824,53 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
             </ActivityAction.Argument>
-            <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="484,2521" sap2010:WorkflowViewState.IdRef="Sequence_222">
+            <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="536,2695" sap2010:WorkflowViewState.IdRef="Sequence_222">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="x:String" Name="Feuille_To_Insert_ERB" />
+              </Sequence.Variables>
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   <x:Boolean x:Key="IsPinned">False</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="450,57" sap2010:WorkflowViewState.IdRef="CommentOut_27">
+              <If Condition="[in_DerniereDate_JJ_MM_YYYY.split(&quot;-&quot;c)(1).Trim.Equals(in_Nouvelle_Date.split(&quot;-&quot;c)(2).Trim)]" sap:VirtualizedContainerService.HintSize="502,500" sap2010:WorkflowViewState.IdRef="If_58">
+                <If.Then>
+                  <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="468,165" sap2010:WorkflowViewState.IdRef="Sequence_311">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Assign sap:VirtualizedContainerService.HintSize="434,105" sap2010:WorkflowViewState.IdRef="Assign_136">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[Feuille_To_Insert_ERB]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[DateTime.ParseExact(in_Nouvelle_Date,"dd-MM-yyyy",System.Globalization.CultureInfo.InvariantCulture).tostring("MM-yyyy")]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                  </Sequence>
+                </If.Then>
+                <If.Else>
+                  <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="468,165" sap2010:WorkflowViewState.IdRef="Sequence_312">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Assign sap:VirtualizedContainerService.HintSize="434,105" sap2010:WorkflowViewState.IdRef="Assign_137">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[Feuille_To_Insert_ERB]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[DateTime.ParseExact(in_DerniereDate_JJ_MM_YYYY,"dd-MM-yyyy",System.Globalization.CultureInfo.InvariantCulture).tostring("MM-yyyy")]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                  </Sequence>
+                </If.Else>
+              </If>
+              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="502,57" sap2010:WorkflowViewState.IdRef="CommentOut_27">
                 <ui:CommentOut.Body>
                   <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="512,625" sap2010:WorkflowViewState.IdRef="Sequence_210">
                     <sap:WorkflowViewStateService.ViewState>
@@ -5878,9 +5917,9 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
               </ui:CommentOut>
-              <ui:ExcelWriteRange AddHeaders="False" DataTable="[Empty_DT]" DisplayName="Write Range" sap:VirtualizedContainerService.HintSize="450,120" sap2010:WorkflowViewState.IdRef="ExcelWriteRange_5" SheetName="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" StartingCell="A1" />
-              <ui:ExcelInsertDeleteRows DisplayName="Insert/Delete Rows" sap:VirtualizedContainerService.HintSize="450,218" sap2010:WorkflowViewState.IdRef="ExcelInsertDeleteRows_1" Mode="Remove" NoRows="200" Position="1" SheetName="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" />
-              <ui:ExcelCopyPasteRange DestinationCell="A1" DestinationSheet="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" DisplayName="Copy/Paste Range" sap:VirtualizedContainerService.HintSize="450,271" sap2010:WorkflowViewState.IdRef="ExcelCopyPasteRange_12" SheetName="Tete" SourceRange="A1:K5">
+              <ui:ExcelWriteRange AddHeaders="False" DataTable="[Empty_DT]" DisplayName="Write Range" sap:VirtualizedContainerService.HintSize="502,120" sap2010:WorkflowViewState.IdRef="ExcelWriteRange_5" SheetName="[Feuille_To_Insert_ERB]" StartingCell="A1" />
+              <ui:ExcelInsertDeleteRows DisplayName="Insert/Delete Rows" sap:VirtualizedContainerService.HintSize="502,218" sap2010:WorkflowViewState.IdRef="ExcelInsertDeleteRows_1" Mode="Remove" NoRows="200" Position="1" SheetName="[Feuille_To_Insert_ERB]" />
+              <ui:ExcelCopyPasteRange DestinationCell="A1" DestinationSheet="[Feuille_To_Insert_ERB]" DisplayName="Copy/Paste Range" sap:VirtualizedContainerService.HintSize="502,271" sap2010:WorkflowViewState.IdRef="ExcelCopyPasteRange_12" SheetName="Tete" SourceRange="A1:K5">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -5888,7 +5927,7 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
               </ui:ExcelCopyPasteRange>
-              <ui:ExcelCopyPasteRange CopyItems="Formula, NumberFormat, CellFormat" DestinationCell="A5" DestinationSheet="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" DisplayName="Copy/Paste Range" sap:VirtualizedContainerService.HintSize="450,271" sap2010:WorkflowViewState.IdRef="ExcelCopyPasteRange_8" SheetName="Pied" SourceRange="[&quot;A17:K&quot;+(Dt_Stock_Rapprochement.RowCount + 20).ToString]">
+              <ui:ExcelCopyPasteRange CopyItems="Formula, NumberFormat, CellFormat" DestinationCell="A5" DestinationSheet="[Feuille_To_Insert_ERB]" DisplayName="Copy/Paste Range" sap:VirtualizedContainerService.HintSize="502,271" sap2010:WorkflowViewState.IdRef="ExcelCopyPasteRange_8" SheetName="Pied" SourceRange="[&quot;A17:K&quot;+(Dt_Stock_Rapprochement.RowCount + 20).ToString]">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -5896,7 +5935,7 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
               </ui:ExcelCopyPasteRange>
-              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="450,57" sap2010:WorkflowViewState.IdRef="CommentOut_28">
+              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="502,57" sap2010:WorkflowViewState.IdRef="CommentOut_28">
                 <ui:CommentOut.Body>
                   <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="416,621" sap2010:WorkflowViewState.IdRef="Sequence_211">
                     <sap:WorkflowViewStateService.ViewState>
@@ -5929,7 +5968,7 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
               </ui:CommentOut>
-              <ui:ExcelWriteRange AddHeaders="False" DataTable="[Dt_Stock_Rapprochement]" DisplayName="Write Range" sap:VirtualizedContainerService.HintSize="450,120" sap2010:WorkflowViewState.IdRef="ExcelWriteRange_3" SheetName="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" StartingCell="A5">
+              <ui:ExcelWriteRange AddHeaders="False" DataTable="[Dt_Stock_Rapprochement]" DisplayName="Write Range" sap:VirtualizedContainerService.HintSize="502,120" sap2010:WorkflowViewState.IdRef="ExcelWriteRange_3" SheetName="[Feuille_To_Insert_ERB]" StartingCell="A5">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -5937,7 +5976,7 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
               </ui:ExcelWriteRange>
-              <ui:ExcelCopyPasteRange DestinationCell="[&quot;A&quot;+(Dt_Stock_Rapprochement.RowCount + 8).ToString]" DestinationSheet="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" DisplayName="Copy/Paste Range" sap:VirtualizedContainerService.HintSize="450,271" sap2010:WorkflowViewState.IdRef="ExcelCopyPasteRange_11" SheetName="Pied" SourceRange="A1:L9">
+              <ui:ExcelCopyPasteRange DestinationCell="[&quot;A&quot;+(Dt_Stock_Rapprochement.RowCount + 8).ToString]" DestinationSheet="[Feuille_To_Insert_ERB]" DisplayName="Copy/Paste Range" sap:VirtualizedContainerService.HintSize="502,271" sap2010:WorkflowViewState.IdRef="ExcelCopyPasteRange_11" SheetName="Pied" SourceRange="A1:L9">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -5945,10 +5984,10 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
               </ui:ExcelCopyPasteRange>
-              <If Condition="[double.Parse(in_Montant_Cumul_Compta)&gt;=0]" sap:VirtualizedContainerService.HintSize="450,220" sap2010:WorkflowViewState.IdRef="If_35">
+              <If Condition="[double.Parse(in_Montant_Cumul_Compta)&gt;=0]" sap:VirtualizedContainerService.HintSize="502,57" sap2010:WorkflowViewState.IdRef="If_35">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
                     <x:Boolean x:Key="IsPinned">False</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
@@ -5960,7 +5999,7 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
                         <x:Boolean x:Key="IsPinned">False</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="479,179" sap2010:WorkflowViewState.IdRef="MultipleAssign_19">
+                    <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="382,57" sap2010:WorkflowViewState.IdRef="MultipleAssign_19">
                       <ui:MultipleAssign.AssignOperations>
                         <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
                           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_135">
@@ -5981,9 +6020,15 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
                           </ui:AssignOperation>
                         </scg:List>
                       </ui:MultipleAssign.AssignOperations>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
                     </ui:MultipleAssign>
-                    <ui:ExcelWriteCell Cell="J4" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="479,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_20" SheetName="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" Text="[(Double.Parse(in_Montant_Cumul_Compta)).ToString]" />
-                    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="479,57" sap2010:WorkflowViewState.IdRef="CommentOut_44">
+                    <ui:ExcelWriteCell Cell="J4" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="382,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_20" SheetName="[Feuille_To_Insert_ERB]" Text="[(Double.Parse(in_Montant_Cumul_Compta)).ToString]" />
+                    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="382,57" sap2010:WorkflowViewState.IdRef="CommentOut_44">
                       <ui:CommentOut.Body>
                         <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="416,171" sap2010:WorkflowViewState.IdRef="Sequence_287">
                           <sap:WorkflowViewStateService.ViewState>
@@ -6001,8 +6046,8 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
                     </ui:CommentOut>
-                    <ui:ExcelWriteCell Cell="[&quot;K&quot; + (Dt_Stock_Rapprochement.RowCount + 8).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="479,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_37" SheetName="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" Text="[&quot;=SUM(K4:&quot;+&quot;K&quot; + (Dt_Stock_Rapprochement.RowCount + 7).ToString+&quot;)&quot;]" />
-                    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="479,57" sap2010:WorkflowViewState.IdRef="CommentOut_45">
+                    <ui:ExcelWriteCell Cell="[&quot;K&quot; + (Dt_Stock_Rapprochement.RowCount + 8).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="382,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_37" SheetName="[Feuille_To_Insert_ERB]" Text="[&quot;=SUM(K4:&quot;+&quot;K&quot; + (Dt_Stock_Rapprochement.RowCount + 7).ToString+&quot;)&quot;]" />
+                    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="382,57" sap2010:WorkflowViewState.IdRef="CommentOut_45">
                       <ui:CommentOut.Body>
                         <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="416,171" sap2010:WorkflowViewState.IdRef="Sequence_288">
                           <sap:WorkflowViewStateService.ViewState>
@@ -6020,7 +6065,7 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
                     </ui:CommentOut>
-                    <ui:ExcelWriteCell Cell="[&quot;J&quot; +(Dt_Stock_Rapprochement.RowCount + 8).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="479,111" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_38" SheetName="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" Text="[&quot;=SUM(J4:&quot;+&quot;J&quot; + (Dt_Stock_Rapprochement.RowCount + 7).ToString+&quot;)&quot;]" />
+                    <ui:ExcelWriteCell Cell="[&quot;J&quot; +(Dt_Stock_Rapprochement.RowCount + 8).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="382,111" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_38" SheetName="[Feuille_To_Insert_ERB]" Text="[&quot;=SUM(J4:&quot;+&quot;J&quot; + (Dt_Stock_Rapprochement.RowCount + 7).ToString+&quot;)&quot;]" />
                   </Sequence>
                 </If.Then>
                 <If.Else>
@@ -6059,7 +6104,7 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
                     </ui:MultipleAssign>
-                    <ui:ExcelWriteCell Cell="K4" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="382,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_23" SheetName="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" Text="[(Math.Abs(Double.Parse(in_Montant_Cumul_Compta))).ToString]" />
+                    <ui:ExcelWriteCell Cell="K4" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="382,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_23" SheetName="[Feuille_To_Insert_ERB]" Text="[(Math.Abs(Double.Parse(in_Montant_Cumul_Compta))).ToString]" />
                     <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="382,57" sap2010:WorkflowViewState.IdRef="CommentOut_46">
                       <ui:CommentOut.Body>
                         <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="416,171" sap2010:WorkflowViewState.IdRef="Sequence_289">
@@ -6096,15 +6141,15 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
                     </ui:CommentOut>
-                    <ui:ExcelWriteCell Cell="[&quot;K&quot; + (Dt_Stock_Rapprochement.RowCount + 8).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="382,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_39" SheetName="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" Text="[&quot;=SUM(K4:&quot;+&quot;K&quot; + (Dt_Stock_Rapprochement.RowCount + 7).ToString+&quot;)&quot;]" />
-                    <ui:ExcelWriteCell Cell="[&quot;J&quot; +(Dt_Stock_Rapprochement.RowCount + 8).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="382,111" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_40" SheetName="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" Text="[&quot;=SUM(J4:&quot;+&quot;J&quot; + (Dt_Stock_Rapprochement.RowCount + 7).ToString+&quot;)&quot;]" />
+                    <ui:ExcelWriteCell Cell="[&quot;K&quot; + (Dt_Stock_Rapprochement.RowCount + 8).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="382,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_39" SheetName="[Feuille_To_Insert_ERB]" Text="[&quot;=SUM(K4:&quot;+&quot;K&quot; + (Dt_Stock_Rapprochement.RowCount + 7).ToString+&quot;)&quot;]" />
+                    <ui:ExcelWriteCell Cell="[&quot;J&quot; +(Dt_Stock_Rapprochement.RowCount + 8).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="382,111" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_40" SheetName="[Feuille_To_Insert_ERB]" Text="[&quot;=SUM(J4:&quot;+&quot;J&quot; + (Dt_Stock_Rapprochement.RowCount + 7).ToString+&quot;)&quot;]" />
                   </Sequence>
                 </If.Else>
               </If>
-              <If Condition="[double.Parse(in_Montant_Cumul_BO)&gt;=0]" sap:VirtualizedContainerService.HintSize="450,220" sap2010:WorkflowViewState.IdRef="If_36">
+              <If Condition="[double.Parse(in_Montant_Cumul_BO)&gt;=0]" sap:VirtualizedContainerService.HintSize="502,57" sap2010:WorkflowViewState.IdRef="If_36">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
                     <x:Boolean x:Key="IsPinned">False</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
@@ -6138,7 +6183,7 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
                         </scg:List>
                       </ui:MultipleAssign.AssignOperations>
                     </ui:MultipleAssign>
-                    <ui:ExcelWriteCell Cell="E4" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="479,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_26" SheetName="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" Text="[(Double.Parse(in_Montant_Cumul_BO)).ToString]" />
+                    <ui:ExcelWriteCell Cell="E4" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="479,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_26" SheetName="[Feuille_To_Insert_ERB]" Text="[(Double.Parse(in_Montant_Cumul_BO)).ToString]" />
                     <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="479,57" sap2010:WorkflowViewState.IdRef="CommentOut_48">
                       <ui:CommentOut.Body>
                         <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="416,291" sap2010:WorkflowViewState.IdRef="Sequence_291">
@@ -6158,8 +6203,8 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
                     </ui:CommentOut>
-                    <ui:ExcelWriteCell Cell="[&quot;E&quot; + (Dt_Stock_Rapprochement.RowCount + 8).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="479,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_41" SheetName="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" Text="[&quot;=SUM(E4:&quot;+&quot;E&quot; + (Dt_Stock_Rapprochement.RowCount + 7).ToString+&quot;)&quot;]" />
-                    <ui:ExcelWriteCell Cell="[&quot;D&quot; +(Dt_Stock_Rapprochement.RowCount + 8).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="479,111" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_42" SheetName="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" Text="[&quot;=SUM(D4:&quot;+&quot;D&quot; + (Dt_Stock_Rapprochement.RowCount + 7).ToString+&quot;)&quot;]" />
+                    <ui:ExcelWriteCell Cell="[&quot;E&quot; + (Dt_Stock_Rapprochement.RowCount + 8).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="479,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_41" SheetName="[Feuille_To_Insert_ERB]" Text="[&quot;=SUM(E4:&quot;+&quot;E&quot; + (Dt_Stock_Rapprochement.RowCount + 7).ToString+&quot;)&quot;]" />
+                    <ui:ExcelWriteCell Cell="[&quot;D&quot; +(Dt_Stock_Rapprochement.RowCount + 8).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="479,111" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_42" SheetName="[Feuille_To_Insert_ERB]" Text="[&quot;=SUM(D4:&quot;+&quot;D&quot; + (Dt_Stock_Rapprochement.RowCount + 7).ToString+&quot;)&quot;]" />
                   </Sequence>
                 </If.Then>
                 <If.Else>
@@ -6198,15 +6243,15 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
                     </ui:MultipleAssign>
-                    <ui:ExcelWriteCell Cell="D4" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="479,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_29" SheetName="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" Text="[(Math.Abs(Double.Parse(in_Montant_Cumul_BO))).ToString]" />
-                    <ui:ExcelWriteCell Cell="[&quot;D&quot; +(Dt_Stock_Rapprochement.RowCount + 8).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="479,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_30" SheetName="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" Text="[Math.Round(Totale_Debit_BO,2).ToString]" />
-                    <ui:ExcelWriteCell Cell="[&quot;E&quot; +(Dt_Stock_Rapprochement.RowCount + 8).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="479,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_31" SheetName="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" Text="[Math.Round(Totale_Credit_BO,2).ToString]" />
-                    <ui:ExcelWriteCell Cell="[&quot;E&quot; + (Dt_Stock_Rapprochement.RowCount + 8).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="479,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_43" SheetName="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" Text="[&quot;=SUM(E4:&quot;+&quot;E&quot; + (Dt_Stock_Rapprochement.RowCount + 7).ToString+&quot;)&quot;]" />
-                    <ui:ExcelWriteCell Cell="[&quot;D&quot; +(Dt_Stock_Rapprochement.RowCount + 8).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="479,111" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_44" SheetName="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" Text="[&quot;=SUM(D4:&quot;+&quot;D&quot; + (Dt_Stock_Rapprochement.RowCount + 7).ToString+&quot;)&quot;]" />
+                    <ui:ExcelWriteCell Cell="D4" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="479,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_29" SheetName="[Feuille_To_Insert_ERB]" Text="[(Math.Abs(Double.Parse(in_Montant_Cumul_BO))).ToString]" />
+                    <ui:ExcelWriteCell Cell="[&quot;D&quot; +(Dt_Stock_Rapprochement.RowCount + 8).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="479,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_30" SheetName="[Feuille_To_Insert_ERB]" Text="[Math.Round(Totale_Debit_BO,2).ToString]" />
+                    <ui:ExcelWriteCell Cell="[&quot;E&quot; +(Dt_Stock_Rapprochement.RowCount + 8).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="479,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_31" SheetName="[Feuille_To_Insert_ERB]" Text="[Math.Round(Totale_Credit_BO,2).ToString]" />
+                    <ui:ExcelWriteCell Cell="[&quot;E&quot; + (Dt_Stock_Rapprochement.RowCount + 8).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="479,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_43" SheetName="[Feuille_To_Insert_ERB]" Text="[&quot;=SUM(E4:&quot;+&quot;E&quot; + (Dt_Stock_Rapprochement.RowCount + 7).ToString+&quot;)&quot;]" />
+                    <ui:ExcelWriteCell Cell="[&quot;D&quot; +(Dt_Stock_Rapprochement.RowCount + 8).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="479,111" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_44" SheetName="[Feuille_To_Insert_ERB]" Text="[&quot;=SUM(D4:&quot;+&quot;D&quot; + (Dt_Stock_Rapprochement.RowCount + 7).ToString+&quot;)&quot;]" />
                   </Sequence>
                 </If.Else>
               </If>
-              <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="450,57" sap2010:WorkflowViewState.IdRef="MultipleAssign_23">
+              <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="502,57" sap2010:WorkflowViewState.IdRef="MultipleAssign_23">
                 <ui:MultipleAssign.AssignOperations>
                   <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
                     <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_143">
@@ -6234,7 +6279,7 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
               </ui:MultipleAssign>
-              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="450,57" sap2010:WorkflowViewState.IdRef="CommentOut_49">
+              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="502,57" sap2010:WorkflowViewState.IdRef="CommentOut_49">
                 <ui:CommentOut.Body>
                   <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="416,171" sap2010:WorkflowViewState.IdRef="Sequence_292">
                     <sap:WorkflowViewStateService.ViewState>
@@ -6259,7 +6304,7 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
               </ui:CommentOut>
-              <ui:ExcelWriteCell Cell="[&quot;D&quot; + (Dt_Stock_Rapprochement.RowCount + 9).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="450,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_45" SheetName="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" Text="[&quot;=D&quot; + (Dt_Stock_Rapprochement.RowCount + 8).ToString +&quot;-E&quot; +  (Dt_Stock_Rapprochement.RowCount + 8).ToString]">
+              <ui:ExcelWriteCell Cell="[&quot;D&quot; + (Dt_Stock_Rapprochement.RowCount + 9).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="502,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_45" SheetName="[Feuille_To_Insert_ERB]" Text="[&quot;=D&quot; + (Dt_Stock_Rapprochement.RowCount + 8).ToString +&quot;-E&quot; +  (Dt_Stock_Rapprochement.RowCount + 8).ToString]">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -6267,7 +6312,7 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
               </ui:ExcelWriteCell>
-              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="450,57" sap2010:WorkflowViewState.IdRef="CommentOut_50">
+              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="502,57" sap2010:WorkflowViewState.IdRef="CommentOut_50">
                 <ui:CommentOut.Body>
                   <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="416,171" sap2010:WorkflowViewState.IdRef="Sequence_293">
                     <sap:WorkflowViewStateService.ViewState>
@@ -6292,7 +6337,7 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
               </ui:CommentOut>
-              <ui:ExcelWriteCell Cell="[&quot;K&quot; + (Dt_Stock_Rapprochement.RowCount + 9).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="450,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_36" SheetName="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" Text="[&quot;=K&quot; + (Dt_Stock_Rapprochement.RowCount + 8).ToString +&quot;-J&quot; +  (Dt_Stock_Rapprochement.RowCount + 8).ToString]">
+              <ui:ExcelWriteCell Cell="[&quot;K&quot; + (Dt_Stock_Rapprochement.RowCount + 9).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="502,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_36" SheetName="[Feuille_To_Insert_ERB]" Text="[&quot;=K&quot; + (Dt_Stock_Rapprochement.RowCount + 8).ToString +&quot;-J&quot; +  (Dt_Stock_Rapprochement.RowCount + 8).ToString]">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -6300,7 +6345,7 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
               </ui:ExcelWriteCell>
-              <ui:ExcelWriteCell Cell="[&quot;E&quot; + (Dt_Stock_Rapprochement.RowCount + 10).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="450,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_46" SheetName="[DateTime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).tostring(&quot;MM-yyyy&quot;)]" Text="[&quot;=D&quot; + (Dt_Stock_Rapprochement.RowCount + 9).ToString +&quot;-K&quot; +  (Dt_Stock_Rapprochement.RowCount + 9).ToString]">
+              <ui:ExcelWriteCell Cell="[&quot;E&quot; + (Dt_Stock_Rapprochement.RowCount + 10).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="502,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_46" SheetName="[Feuille_To_Insert_ERB]" Text="[&quot;=D&quot; + (Dt_Stock_Rapprochement.RowCount + 9).ToString +&quot;-K&quot; +  (Dt_Stock_Rapprochement.RowCount + 9).ToString]">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -6308,7 +6353,7 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
               </ui:ExcelWriteCell>
-              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="450,57" sap2010:WorkflowViewState.IdRef="CommentOut_29">
+              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="502,57" sap2010:WorkflowViewState.IdRef="CommentOut_29">
                 <ui:CommentOut.Body>
                   <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="484,481" sap2010:WorkflowViewState.IdRef="Sequence_218">
                     <sap:WorkflowViewStateService.ViewState>
@@ -6354,7 +6399,7 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
               </ui:CommentOut>
-              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="450,48" sap2010:WorkflowViewState.IdRef="CommentOut_30">
+              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="502,48" sap2010:WorkflowViewState.IdRef="CommentOut_30">
                 <ui:CommentOut.Body>
                   <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="484,481" sap2010:WorkflowViewState.IdRef="Sequence_221">
                     <sap:WorkflowViewStateService.ViewState>
@@ -6417,7 +6462,7 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </ui:ExcelApplicationScope>
-      <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="450,353" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_10" InstanceCachePeriod="3000" WorkbookPath="[in_chemin_parent_ERB.TrimEnd(&quot;\&quot;c)+ &quot;\&quot;  + in_Compte+ &quot;\&quot;+ in_Nouvelle_Date + &quot;\Matched.xls&quot;]">
+      <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="450,313" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_10" InstanceCachePeriod="3000" WorkbookPath="[in_chemin_parent_ERB.TrimEnd(&quot;\&quot;c)+ &quot;\&quot;  + in_Compte+ &quot;\&quot;+ in_Nouvelle_Date + &quot;\Matched.xls&quot;]">
         <ui:ExcelApplicationScope.Body>
           <ActivityAction x:TypeArguments="ui:WorkbookApplication">
             <ActivityAction.Argument>
@@ -6513,20 +6558,20 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
         </sap:WorkflowViewStateService.ViewState>
       </ui:CommentOut>
     </Sequence>
-    <Sequence DisplayName="Alimentation_Stok_Compta_BO" sap:VirtualizedContainerService.HintSize="702,1675" sap2010:WorkflowViewState.IdRef="Sequence_297">
+    <Sequence DisplayName="Alimentation_Stok_Compta_BO" sap:VirtualizedContainerService.HintSize="702,57" sap2010:WorkflowViewState.IdRef="Sequence_297">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Log_Debut - Invoke Workflow File (Logs\Log_Debut.xaml)" sap:VirtualizedContainerService.HintSize="526,204" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_29" UnSafe="False" WorkflowFileName="Logs\Log_Debut.xaml">
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Log_Debut - Invoke Workflow File (Logs\Log_Debut.xaml)" sap:VirtualizedContainerService.HintSize="416,204" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_29" UnSafe="False" WorkflowFileName="Logs\Log_Debut.xaml">
         <ui:InvokeWorkflowFile.Arguments>
           <InArgument x:TypeArguments="x:String" x:Key="in_Workflow_name">Alimentation_Stok_BO</InArgument>
           <InOutArgument x:TypeArguments="x:String" x:Key="io_StepWorkflow">[io_StepWorkflow]</InOutArgument>
         </ui:InvokeWorkflowFile.Arguments>
       </ui:InvokeWorkflowFile>
-      <ui:RetryScope DisplayName="Retry Scope" sap:VirtualizedContainerService.HintSize="526,1184" sap2010:WorkflowViewState.IdRef="RetryScope_3" NumberOfRetries="10" RetryInterval="00:00:02">
+      <ui:RetryScope DisplayName="Retry Scope" sap:VirtualizedContainerService.HintSize="416,57" sap2010:WorkflowViewState.IdRef="RetryScope_3" NumberOfRetries="10" RetryInterval="00:00:02">
         <ui:RetryScope.ActivityBody>
           <ActivityAction>
             <Sequence DisplayName="Action" sap:VirtualizedContainerService.HintSize="484,977" sap2010:WorkflowViewState.IdRef="Sequence_282">
@@ -6588,19 +6633,19 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
         </ui:RetryScope.Condition>
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
             <x:Boolean x:Key="IsPinned">False</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </ui:RetryScope>
-      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Log_Fin - Invoke Workflow File (Logs\Log_Fin.xaml)" sap:VirtualizedContainerService.HintSize="526,195" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_30" UnSafe="False" WorkflowFileName="Logs\Log_Fin.xaml">
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Log_Fin - Invoke Workflow File (Logs\Log_Fin.xaml)" sap:VirtualizedContainerService.HintSize="416,195" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_30" UnSafe="False" WorkflowFileName="Logs\Log_Fin.xaml">
         <ui:InvokeWorkflowFile.Arguments>
           <InArgument x:TypeArguments="x:String" x:Key="in_Workflow_name">Alimentation_Stok_BO</InArgument>
           <InOutArgument x:TypeArguments="x:String" x:Key="io_StepWorkflow">[io_StepWorkflow]</InOutArgument>
         </ui:InvokeWorkflowFile.Arguments>
       </ui:InvokeWorkflowFile>
     </Sequence>
-    <ui:SetAsset TimeoutMS="{x:Null}" AssetName="[&quot;BKG_Rapprochement_Sage _BusinessOnline_DerniereDate_&quot;+in_Compte.Trim.Replace(&quot; &quot;,&quot;_&quot;)]" DisplayName="Set Asset" sap:VirtualizedContainerService.HintSize="560,226" sap2010:WorkflowViewState.IdRef="SetAsset_3" Value="[Datetime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).ToString(&quot;dd/MM/yyyy&quot;)]">
+    <ui:SetAsset TimeoutMS="{x:Null}" AssetName="[&quot;BKG_Rapprochement_Sage _BusinessOnline_DerniereDate_&quot;+in_Compte.Trim.Replace(&quot; &quot;,&quot;_&quot;)]" DisplayName="Set Asset" sap:VirtualizedContainerService.HintSize="702,226" sap2010:WorkflowViewState.IdRef="SetAsset_3" Value="[Datetime.ParseExact(in_Nouvelle_Date,&quot;dd-MM-yyyy&quot;,System.Globalization.CultureInfo.InvariantCulture).ToString(&quot;dd/MM/yyyy&quot;)]">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -6608,7 +6653,7 @@ Select DT_BusinessOnLine.Rows.Add(Code, Date_BO, Date_BO, Date_BO, Libelle.ToUpp
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:SetAsset>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="560,48" sap2010:WorkflowViewState.IdRef="LogMessage_2" Message="[&quot;&quot;]">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="702,48" sap2010:WorkflowViewState.IdRef="LogMessage_2" Message="[&quot;&quot;]">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">False</x:Boolean>
